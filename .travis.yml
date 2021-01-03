@@ -3,18 +3,18 @@ services:
   - docker
 
 before_install:
-  - docker build -t kierangleeson/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t kgleeson/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true kierangleeson/react-test npm test 
+  - docker run -e CI=true kgleeson/react-test npm test 
 
 after_success:
-  - docker build -t kierangleeson/multi-client ./client  
-  - docker build -t kierangleeson/multi-nginx ./nginx
-  - docker build -t kierangleeson/multi-server ./server    
-  - docker build -t kierangleeson/multi-worker ./worker  
+  - docker build -t kgleeson/multi-client ./client  
+  - docker build -t kgleeson/multi-nginx ./nginx
+  - docker build -t kgleeson/multi-server ./server    
+  - docker build -t kgleeson/multi-worker ./worker  
   - echo "$DOCKER_PASSSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push kierangleeson/multi-client
-  - docker push kierangleeson/multi-nginx 
-  - docker push kierangleeson/multi-server
-  - docker push kierangleeson/multi-worker
+  - docker push kgleeson/multi-client
+  - docker push kgleeson/multi-nginx 
+  - docker push kgleeson/multi-server
+  - docker push kgleeson/multi-worker
