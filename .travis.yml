@@ -1,4 +1,6 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
@@ -6,16 +8,16 @@ before_install:
   - docker build -t kgleeson/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true kgleeson/react-test npm test 
+  - docker run -e CI=true kgleeson/react-test npm test
 
 after_success:
-  - docker build -t kgleeson/multi-client ./client  
+  - docker build -t kgleeson/multi-client ./client
   - docker build -t kgleeson/multi-nginx ./nginx
-  - docker build -t kgleeson/multi-server ./server    
-  - docker build -t kgleeson/multi-worker ./worker  
+  - docker build -t kgleeson/multi-server ./server
+  - docker build -t kgleeson/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push kgleeson/multi-client
-  - docker push kgleeson/multi-nginx 
+  - docker push kgleeson/multi-nginx
   - docker push kgleeson/multi-server
   - docker push kgleeson/multi-worker
 
@@ -23,7 +25,7 @@ deploy:
   provider: elasticbeanstalk
   region: 'eu-west-1'
   app: 'multi-docker'
-  env: 'MultiDocker-env-1'
+  env: 'MultiDocker-env'
   bucket_name: 'elasticbeanstalk-eu-west-1-160653776149'
   bucket_path: 'docker-multi'
   on:
