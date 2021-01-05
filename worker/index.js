@@ -11,7 +11,7 @@ redisClient.on("ready", () => {
   console.log('redis have ready !')
  })
  
- this.redisClient.on("connect", () => {
+redisClient.on("connect", () => {
   console.log('connect redis success !')
  })
 
