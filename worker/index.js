@@ -7,6 +7,14 @@ const redisClient = redis.createClient({
   retry_strategy: () => 1000,
 });
 
+redisClient.on("ready", () => {
+  console.log('redis have ready !')
+ })
+ 
+ this.redisClient.on("connect", () => {
+  console.log('connect redis success !')
+ })
+
 redisClient.on("error", function(error) {
   console.error(error);
 });
