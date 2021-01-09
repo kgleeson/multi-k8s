@@ -10,11 +10,9 @@ spec:
   commonName: thegibson.net
   dnsNames:
     - thegibson.net
-    - www.thegibson.net
   acme:
     config:
     - http01:
         ingresClass: nginx
       domains:
           - thegibson.net
-          - www.thegibson.net
